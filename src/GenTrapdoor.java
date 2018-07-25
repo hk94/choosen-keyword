@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -19,7 +20,7 @@ import javax.swing.JTextField;
 
 public class GenTrapdoor extends JFrame implements ActionListener 
 {
-    JButton Gen;
+    JButton Gen,Del;
     String keyword;
     byte[] trapdoor,ciphertext;
     JTextField keywordField;
@@ -37,10 +38,12 @@ public class GenTrapdoor extends JFrame implements ActionListener
     }
     public GenTrapdoor()
     {
-    	keywordField = new JTextField(20);
+    	keywordField = new JTextField(12);
         this.setLayout(new FlowLayout());
         Gen=new JButton("Generate");
         Gen.addActionListener(this);
+        Del=new JButton("Reset");
+        Del.addActionListener(this);
         jta = new JTextArea(10, 30);
 		jta.setEditable(false);
 		jta.setLineWrap(true);
@@ -49,7 +52,8 @@ public class GenTrapdoor extends JFrame implements ActionListener
 
         this.add(keywordField);
         this.add(Gen);
-		this.add(jta);
+        this.add(Del);
+		this.add(jsp);
         this.setSize(400,300);
         this.setVisible(true);
         this.setLocation(500, 200);
@@ -80,13 +84,25 @@ public class GenTrapdoor extends JFrame implements ActionListener
 					oos=new ObjectOutputStream(new FileOutputStream("G:\\choosen keyword\\td"+i));
 					oos.writeObject(trapdoor);
 					oos.close();
-					jta.append("Successfully generate trapdoor"+i+", path is: G:\\choosen keyword\\td"+i+"\n");
+					jta.append("Successfully generate trapdoor"+i+"\nHashcode is: "+trapdoor.hashCode()+"\nPath is: G:\\choosen keyword\\td"+i+"\n\n");
 					i++;
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 				
 			}
+		}
+		else if (e.getSource() == Del) {
+			i=1;
+			File f=new File("G:\\choosen keyword\\td"+i);
+    		while (f.exists()){
+    			f.delete();
+        		i++;
+        		f=new File("G:\\choosen keyword\\td"+i);
+    		}
+    		i=1;
+    		jta.setText("");
+    		JOptionPane.showMessageDialog(null,"All trapdoors have been deleted.");
 		}
 	}
 }

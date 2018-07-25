@@ -23,7 +23,7 @@ public class keywordTest extends JFrame implements ActionListener
     JButton Test;
     String keyword;
     byte[] ciphertext;
-    byte[][] trapdoor=new byte[10][];
+    byte[][] trapdoor=new byte[100][];
     JTextField keywordField;
 	JScrollPane jsp;
 	JTextArea jta;
@@ -51,7 +51,7 @@ public class keywordTest extends JFrame implements ActionListener
 
         this.add(keywordField);
         this.add(Test);
-		this.add(jta);
+		this.add(jsp);
         this.setSize(400,300);
         this.setVisible(true);
         this.setLocation(500, 200);
@@ -68,6 +68,11 @@ public class keywordTest extends JFrame implements ActionListener
         		f=new File("G:\\choosen keyword\\td"+i);
     		}
     		jta.append("Successfully read "+(i-1)+" trapdoor.\n");
+    		if (i>1) {
+				for (int j=1;j<i;j++) {
+					jta.append(j+".Hashcode:"+trapdoor[j].hashCode()+"  Match status: \n");
+				}
+			}
         } catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -86,14 +91,14 @@ public class keywordTest extends JFrame implements ActionListener
 					oos.writeObject(ciphertext);
 					oos.close();*/
 					jta.setText("");
-					jta.append("Successfully read "+(i-1)+" trapdoor.\n");
+					jta.append("Generated ciphertext's hashcode is "+ciphertext.hashCode()+"\n");
 					if (i>1) {
 						for (int j=1;j<i;j++) {
 							if (lib.verify(publicKey, ciphertext, trapdoor[j])) {
-								jta.append("Trapdoor"+j+": Match success.\n");
+								jta.append(j+".Hashcode:"+trapdoor[j].hashCode()+"  Match status: Success\n");
 							}
 							else{
-								jta.append("Trapdoor"+j+": Match failed.\n");
+								jta.append(j+".Hashcode:"+trapdoor[j].hashCode()+"  Match status: Failed\n");
 							}
 						}
 					}
