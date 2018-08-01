@@ -20,7 +20,6 @@ public class libforclient {
 	protected byte[] encrypt(RSAPublicKey publicKey, byte[] obj) {
 		if (publicKey != null) {
 			try {
-
 				Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
 				cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 				return cipher.doFinal(obj);
