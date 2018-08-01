@@ -59,7 +59,7 @@ public class keywordTest extends JFrame implements ActionListener
         	ois = new ObjectInputStream(new FileInputStream("test\\publickey"));
     		publicKey=(RSAPublicKey) ois.readObject();
     		ois.close();
-    		f=new File("G:\\choosen keyword\\td"+i);
+    		f=new File("test\\td"+i);
     		while (f.exists()){
     			ois = new ObjectInputStream(new FileInputStream("test\\td"+i));
     			trapdoor[i]=(byte[]) ois.readObject();

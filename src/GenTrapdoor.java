@@ -84,7 +84,7 @@ public class GenTrapdoor extends JFrame implements ActionListener
 					oos=new ObjectOutputStream(new FileOutputStream("test\\td"+i));
 					oos.writeObject(trapdoor);
 					oos.close();
-					jta.append("Successfully generate trapdoor"+i+"\nHashcode is: "+trapdoor.hashCode()+"\nPath is: G:\\choosen keyword\\td"+i+"\n\n");
+					jta.append("Successfully generate trapdoor"+i+"\nHashcode is: "+trapdoor.hashCode()+"\nPath is: test\\td"+i+"\n\n");
 					i++;
 				} catch (Exception e1) {
 					e1.printStackTrace();
