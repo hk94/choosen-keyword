@@ -17,10 +17,10 @@ public class Initial {
 			KeyPair keyPair = keyPairGen.generateKeyPair();
 			RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
 			RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("G:\\choosen keyword\\privatekey"));
+			ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream("test\\privatekey"));
 			oos.writeObject(privateKey);
 			oos.close();
-			ObjectOutputStream oos2=new ObjectOutputStream(new FileOutputStream("G:\\choosen keyword\\publickey"));
+			ObjectOutputStream oos2=new ObjectOutputStream(new FileOutputStream("test\\publickey"));
 			oos2.writeObject(publicKey);
 			oos2.close();
 		} catch (NoSuchAlgorithmException e) {

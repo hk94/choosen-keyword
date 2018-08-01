@@ -58,10 +58,10 @@ public class GenTrapdoor extends JFrame implements ActionListener
         this.setVisible(true);
         this.setLocation(500, 200);
         try {
-        	ois = new ObjectInputStream(new FileInputStream("G:\\choosen keyword\\publickey"));
+        	ois = new ObjectInputStream(new FileInputStream("test\\publickey"));
     		publicKey=(RSAPublicKey) ois.readObject();
     		ois.close();
-    		ois = new ObjectInputStream(new FileInputStream("G:\\choosen keyword\\privatekey"));
+    		ois = new ObjectInputStream(new FileInputStream("test\\privatekey"));
     		privateKey=(RSAPrivateKey) ois.readObject();
     		ois.close();
         } catch (Exception ex) {
@@ -81,7 +81,7 @@ public class GenTrapdoor extends JFrame implements ActionListener
 					/*oos=new ObjectOutputStream(new FileOutputStream("G:\\choosen keyword\\ct"+i));
 					oos.writeObject(ciphertext);
 					oos.close();*/
-					oos=new ObjectOutputStream(new FileOutputStream("G:\\choosen keyword\\td"+i));
+					oos=new ObjectOutputStream(new FileOutputStream("test\\td"+i));
 					oos.writeObject(trapdoor);
 					oos.close();
 					jta.append("Successfully generate trapdoor"+i+"\nHashcode is: "+trapdoor.hashCode()+"\nPath is: G:\\choosen keyword\\td"+i+"\n\n");
@@ -94,11 +94,11 @@ public class GenTrapdoor extends JFrame implements ActionListener
 		}
 		else if (e.getSource() == Del) {
 			i=1;
-			File f=new File("G:\\choosen keyword\\td"+i);
+			File f=new File("test\\td"+i);
     		while (f.exists()){
     			f.delete();
         		i++;
-        		f=new File("G:\\choosen keyword\\td"+i);
+        		f=new File("test\\td"+i);
     		}
     		i=1;
     		jta.setText("");
