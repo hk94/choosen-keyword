@@ -56,16 +56,16 @@ public class keywordTest extends JFrame implements ActionListener
         this.setVisible(true);
         this.setLocation(500, 200);
         try {
-        	ois = new ObjectInputStream(new FileInputStream("test\\publickey"));
+        	ois = new ObjectInputStream(new FileInputStream("test/publickey"));
     		publicKey=(RSAPublicKey) ois.readObject();
     		ois.close();
-    		f=new File("test\\td"+i);
+    		f=new File("test/td"+i);
     		while (f.exists()){
-    			ois = new ObjectInputStream(new FileInputStream("test\\td"+i));
+    			ois = new ObjectInputStream(new FileInputStream("test/td"+i));
     			trapdoor[i]=(byte[]) ois.readObject();
         		ois.close();
         		i++;
-        		f=new File("test\\td"+i);
+        		f=new File("test/td"+i);
     		}
     		jta.append("Successfully read "+(i-1)+" trapdoor.\n");
     		if (i>1) {
@@ -87,7 +87,7 @@ public class keywordTest extends JFrame implements ActionListener
 				try {
 					keyword = keywordField.getText().trim();
 					ciphertext= lib.gencipher(keyword, publicKey);
-					/*oos=new ObjectOutputStream(new FileOutputStream("G:\\choosen keyword\\ct"+i));
+					/*oos=new ObjectOutputStream(new FileOutputStream("G:/choosen keyword/ct"+i));
 					oos.writeObject(ciphertext);
 					oos.close();*/
 					jta.setText("");
