@@ -28,6 +28,7 @@ public class keywordTest extends JFrame implements ActionListener
 	JScrollPane jsp;
 	JTextArea jta;
 	RSAPublicKey publicKey;
+	RSAPrivateKey privateKey;
 
 	ObjectInputStream ois;
 	ObjectOutputStream oos;
@@ -58,7 +59,10 @@ public class keywordTest extends JFrame implements ActionListener
         try {
         	ois = new ObjectInputStream(new FileInputStream("test/publickey"));
     		publicKey=(RSAPublicKey) ois.readObject();
-    		ois.close();
+			ois.close();
+			ois = new ObjectInputStream(new FileInputStream("test/privatekey"));
+    		privateKey=(RSAPrivateKey) ois.readObject();
+			ois.close();
     		f=new File("test/td"+i);
     		while (f.exists()){
     			ois = new ObjectInputStream(new FileInputStream("test/td"+i));
@@ -86,7 +90,7 @@ public class keywordTest extends JFrame implements ActionListener
 			else {
 				try {
 					keyword = keywordField.getText().trim();
-					ciphertext= lib.gencipher(keyword, publicKey);
+					ciphertext= lib.gencipher(keyword, publicKey, privateKey);
 					/*oos=new ObjectOutputStream(new FileOutputStream("G:/choosen keyword/ct"+i));
 					oos.writeObject(ciphertext);
 					oos.close();*/

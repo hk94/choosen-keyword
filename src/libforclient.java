@@ -17,13 +17,16 @@ public class libforclient {
 		  signature.update(data);
 		  return signature.sign();
 	}
-	protected byte[] encrypt(RSAPublicKey publicKey, byte[] obj) {
+	protected byte[] encrypt(RSAPublicKey publicKey, RSAPrivateKey privateKey, byte[] obj) {
 		if (publicKey != null) {
 			try {
 
 				Cipher cipher = Cipher.getInstance("RSA/ECB/NoPadding");
 				cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-				return cipher.doFinal(obj);
+				byte[] c1 = cipher.doFinal(obj);
+				Cipher cipher2 = Cipher.getInstance("RSA/ECB/NoPadding");
+				cipher2.init(Cipher.ENCRYPT_MODE, privateKey);
+				return cipher2.doFinal(c1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -33,7 +36,7 @@ public class libforclient {
 	protected byte[] gentrapdoor(String keyword,RSAPrivateKey privateKey,RSAPublicKey publicKey) {
 		
 		try {
-			byte[] ciphertext=encoder.encode(encrypt(publicKey,keyword.getBytes()));
+			byte[] ciphertext=encoder.encode(encrypt(publicKey, privateKey, keyword.getBytes()));
 			byte[] trapdoor=signature(privateKey, ciphertext);
 
 			return trapdoor;
